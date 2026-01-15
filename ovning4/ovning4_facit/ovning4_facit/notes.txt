@@ -1,0 +1,44 @@
+Vanliga tankefel och utmaningar
+
+Stack/Queue
+1. FIFO vs LIFO blandas ihop
+Queue ska ta bort från front (äldsta). Många råkar ta från “sist” (removeLast), vilket blir LIFO-liknande beteende.
+
+2. Peek/pop utan precondition
+Glömmer assert(!empty()) i pop/peek/dequeue/peek.
+
+3. size() blir O(n) och används i loopar
+Om size() kallar lengthOfList() är det O(n). Kör de for (i=0; i<size(); ++i) och kallar size varje varv får de O(n²).
+
+Bra diskussionspunkt: “cachea size” vs enkelhet.
+
+
+Set
+4. Bryter invarianten: dubbletter
+add(x) måste först kolla contains(x). Många gör addLast(x) direkt.
+
+5. Union implementeras genom att bara lägga ihop listor
+Då får man dubbletter. Rätt lösning: använd add som “filter”.
+
+6. Intersection/difference görs åt fel håll
+A \ B = element i A som inte finns i B. Många råkar göra tvärtom.
+
+
+List / callback / ctx
+7. Callback-konceptet är ovant
+Glömmer att forEachCtx är “för varje element, kör funktionen”.
+Förstår inte void* ctx: kan förklaras som “en liten ryggsäck med extra data”.
+
+8. Felaktig cast av ctx
+static_cast<MyCtx*>(ctx) måste matcha exakt den struct som skickades in.
+
+9. Blandar stream och stdout
+printList(FILE*) ska skriva till given stream (fprintf(stream, ...)), inte alltid printf.
+
+
+Minneshantering / robusthet
+10. removeLast-buggen (om ni lämnar den som “buggjakt”)
+Saknat return efter removeFirst ger krascher på listor med 1 element.
+
+11. Kopiering av List
+Om ni inte delete copy ctor/assignment kan de råka kopiera listor och få dubbel-free.
