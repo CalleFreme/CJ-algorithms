@@ -13,7 +13,7 @@ struct Tree {
 
 struct Tree createTree() {
 	struct Tree tree;
-	tree.root = NULL; // Initialize root to NULL
+	tree.root = NULL; // Initialize root to NULL. Från början är trädet tomt.
 	return tree;
 }
 
@@ -37,7 +37,7 @@ struct TreeNode* createNode(int value) {
 /* ---------- Enkel queue för TreeNode* (cirkulär buffer) ---------- */
 struct Queue {
 	// Vi använder en kö för BFS-traversal.
-	struct TreeNode** data; // pekare till array av TreeNode*. TODO: Förklara bättre
+	struct TreeNode** data; // pekare till array av TreeNode*. D.v.s pekare till pekare = **.
     int capacity;
 	int head;   // index för nästa pop. Anger var början av kön ligger.
 	int tail;   // index för nästa push. Anger var slutet av kön ligger.
